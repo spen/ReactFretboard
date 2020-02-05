@@ -10,6 +10,8 @@
   "author": "Spen Taylor",
   "license": "ISC",
   "dependencies": {
+    "@tonaljs/chord": "^3.3.0",
+    "@tonaljs/chord-dictionary": "^3.3.0",
     "@tonaljs/interval": "^3.2.3",
     "@tonaljs/note": "^3.2.4",
     "@tonaljs/scale": "^3.2.3",
