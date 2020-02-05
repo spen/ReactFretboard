@@ -1,4 +1,4 @@
-export default [ 
+export default [
     'chromatic',
     'major pentatonic',
     'minor pentatonic',
@@ -9,6 +9,6 @@ export default [
     'lydian',
     'lydian dominant',
     'phrygian',
-    'phrygian dominant', 
-    'balinese', 
+    'phrygian dominant',
+    'balinese',
 ];

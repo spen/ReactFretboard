@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'reset-css';
 
-import ScaleSelectFretboard from './containers/ScaleSelectFretboard';
+import ChordSelectFretboard from './containers/ChordSelectFretboard';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,6 +26,6 @@ const Wrapper = styled.div`
 export const App: React.FC<{}> = () => (
 	<Wrapper>
 		<GlobalStyle />
-		<ScaleSelectFretboard />
+		<ChordSelectFretboard />
 	</Wrapper>
 );

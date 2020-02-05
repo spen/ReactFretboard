@@ -10,14 +10,14 @@ const Container = styled.div`
 `;
 
 interface Option {
-    label: string; 
+    label: string;
     value: string;
 }
 
 interface OptionSelectProps {
     onSelectOption: ( value: string ) => void;
     options: Option[];
-    selectedOption: any; 
+    selectedOption: any;
 }
 
 const OptionSelect: React.FC<OptionSelectProps> = ( { options, selectedOption, onSelectOption } ) => (
@@ -33,7 +33,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ( { options, selectedOption, o
                         { label }
                     </OptionButton>
                 )
-            ) 
+            )
         }
     </Container>
 );
