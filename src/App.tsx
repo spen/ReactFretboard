@@ -6,7 +6,7 @@ import ChordSelectFretboard from './containers/ChordSelectFretboard';
 
 const GlobalStyle = createGlobalStyle`
   body {
-	background-color: #303539;
+	background-color: #202832;
 	margin: 0;
 	min-height: 100vh;
     min-width: 100vw;

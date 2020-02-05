@@ -7,6 +7,7 @@ import { chord } from '@tonaljs/chord';
 import chromaticNotes from '../../constants/chromaticNotes';
 import FretBoard from '../../components/Fretboard';
 import OptionSelection from '../../components/OptionSelection';
+import IntervalStrip from '../../components/IntervalStrip';
 
 const Container = styled.div`
     max-width: 960px;   
@@ -59,10 +60,10 @@ const ScaleSelectFretboard: React.FC<{}> = () => {
     const [ root, setRoot ] = React.useState( rootOptions[ 0 ].value );
     const [ chordType, setChordType ] = React.useState( chordOptions[ 0 ].value );
     const labels = getItemsInScale( root, chordType );
+    const { intervals, notes, name  } = chord( `${ root }${ chordType }` );
 
     return (
         <Container>
-            <Heading>Chord Demo</Heading>
             <Controls>
                 <OptionSelection
                     onSelectOption={ setRoot }
@@ -75,6 +76,11 @@ const ScaleSelectFretboard: React.FC<{}> = () => {
                     options={ chordOptions }
                 />
             </Controls>
+            <Heading>{ startCase( name ) }</Heading>
+            <IntervalStrip
+                root={ root }
+                activeIntervals={ intervals }
+            />
             <FretBoard
                 labels={ labels }
                 renderLabel={ ( { label } ) => label.note  }

@@ -6,10 +6,11 @@ import String from './String';
 
 const Container = styled.div`
     padding: 10px;
-    background: #555;
+    background: #444;
     position: relative;
     display: flex;
     flex-direction: column-reverse;
+    margin: 10px 0;
 `;
 
 interface StringType {
