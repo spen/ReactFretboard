@@ -2,7 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { includes } from 'lodash';
 import * as Tonal from '@tonaljs/tonal';
-import { simplify } from '@tonaljs/interval';
+
+import simplifyNoteName from '../../lib/simplifyNoteName';
 
 const Container = styled.div`
     display: flex;
@@ -72,7 +73,7 @@ interface IntervalStripProps {
     activeIntervals?: string[];
 }
 
-const ChordInformation: React.FC<IntervalStripProps> = ( { root, activeIntervals } ) => {
+const IntervalStrip: React.FC<IntervalStripProps> = ( { root, activeIntervals } ) => {
     const activeSemitones = activeIntervals.map( interval => Tonal.interval( interval ).semitones )
 
     return (
@@ -82,16 +83,13 @@ const ChordInformation: React.FC<IntervalStripProps> = ( { root, activeIntervals
                     interval => { 
                         const semitones = Tonal.interval( interval ).semitones;
                         const color = getRelativeChromaticColor( semitones % 12 );
-
                         const note = Tonal.transpose( root, interval ); 
-
                         const isActive = includes( activeSemitones, semitones );
-
-                        const intervalLabel = interval.replace( '1P', 'Root' )
+                        const intervalLabel = interval.replace( '1P', 'Root' );
 
                         return (
                             <FlexColumn isActive={ isActive }>
-                                <Note color={ color }>{ note }</Note>
+                                <Note color={ color }>{ simplifyNoteName( note, '#' ) }</Note>
                                 <Note color={ color }>{ intervalLabel }</Note>
                             </FlexColumn>
                         );
@@ -101,4 +99,4 @@ const ChordInformation: React.FC<IntervalStripProps> = ( { root, activeIntervals
         </Container>
     );
 }
-export default ChordInformation;
+export default IntervalStrip;

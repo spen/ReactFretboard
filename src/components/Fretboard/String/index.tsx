@@ -5,6 +5,7 @@ import { note, transpose, distance, interval } from '@tonaljs/tonal';
 import { fromSemitones } from '@tonaljs/interval';
 
 import Fret from '../Fret';
+import simplifyNoteName from '../../../lib/simplifyNoteName';
 
 const FlexRow = styled.div`
     display: flex;
@@ -64,7 +65,7 @@ const String: React.FC<StringProps> = ( { letter, octave, renderLabel, frets, ro
                     >  
                         { label && renderLabel ? 
                             renderLabel( { label } ) 
-                            : transposedNote.pc
+                            : simplifyNoteName( transposedNote.pc, '#' )
                         }
                     </Fret>
                 );

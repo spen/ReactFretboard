@@ -11,6 +11,7 @@ const OptionButton = styled.button<OptionButtonProps>`
     border: 2px solid rgba( 255, 255, 255, 0.4 );
     flex-grow: 1;
     cursor: pointer;
+    text-transform: capitalize;
 
     &:hover {
         background: ${ props => props.isSelected ? '#67E5D2' : '#eee'  };
