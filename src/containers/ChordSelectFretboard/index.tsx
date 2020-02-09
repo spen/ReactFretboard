@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { startCase } from 'lodash';
 import * as Tonal from '@tonaljs/tonal';
 import { chord } from '@tonaljs/chord';
 
@@ -8,6 +7,7 @@ import chromaticNotes from '../../constants/chromaticNotes';
 import FretBoard from '../../components/Fretboard';
 import OptionSelection from '../../components/OptionSelection';
 import IntervalStrip from '../../components/IntervalStrip';
+import simplifyNoteName from '../../lib/simplifyNoteName';
 
 const Container = styled.div`
     max-width: 960px;   
@@ -18,6 +18,7 @@ const Container = styled.div`
 const Heading = styled.h2`
     font-size: 2em;
     color: white;
+    text-transform: capitalize;
 `;
 
 const Controls = styled.div`
@@ -39,10 +40,9 @@ const commonChordTypes = [
 ]
 
 const rootOptions = chromaticNotes.map( x => ( { value: x, label: x } ) );
-const chordOptions = commonChordTypes.map( x => ( { value: x, label: startCase( x ) } ) );
+const chordOptions = commonChordTypes.map( x => ( { value: x, label: x } ) );
 
-// TODO: This feels unclear, needs improvement.
-const getItemsInScale = ( root, chordType ) => {
+const getChordLabels = ( root, chordType ) => {
     const { intervals, notes } = chord( `${ root }${ chordType }` );
 
     return intervals.map(
@@ -50,7 +50,7 @@ const getItemsInScale = ( root, chordType ) => {
             {
                 semitones: Tonal.interval( interval ).semitones,
                 interval,
-                note: notes[ index ],
+                note: simplifyNoteName( notes[ index ], '#' ),
             }
         )
     );
@@ -59,8 +59,9 @@ const getItemsInScale = ( root, chordType ) => {
 const ScaleSelectFretboard: React.FC<{}> = () => {
     const [ root, setRoot ] = React.useState( rootOptions[ 0 ].value );
     const [ chordType, setChordType ] = React.useState( chordOptions[ 0 ].value );
-    const labels = getItemsInScale( root, chordType );
-    const { intervals, notes, name  } = chord( `${ root }${ chordType }` );
+    const labels = getChordLabels( root, chordType );
+    const chordData = chord( `${ root }${ chordType }` );
+    const { intervals, name  } = chordData;
 
     return (
         <Container>
@@ -68,7 +69,7 @@ const ScaleSelectFretboard: React.FC<{}> = () => {
                 <OptionSelection
                     onSelectOption={ setRoot }
                     selectedOption={ root }
-                    options={ chromaticNotes.map( x => ( { value: x, label: x } ) ) }
+                    options={ rootOptions }
                 />
                 <OptionSelection
                     onSelectOption={ setChordType }
@@ -76,7 +77,7 @@ const ScaleSelectFretboard: React.FC<{}> = () => {
                     options={ chordOptions }
                 />
             </Controls>
-            <Heading>{ startCase( name ) }</Heading>
+            <Heading>{ name }</Heading>
             <IntervalStrip
                 root={ root }
                 activeIntervals={ intervals }
